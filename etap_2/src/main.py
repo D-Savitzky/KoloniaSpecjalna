@@ -2,6 +2,7 @@ import kagglehub
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
 # Download latest version
 kagglehub.dataset_download('fronkongames/steam-games-dataset', path='games.csv', output_dir='../data')
@@ -54,14 +55,19 @@ if price_col:
 # 6. EDA
 # ======================
 
+# Tworzenie folderu outputs jesli nie istnieje
+output_dir = '../outputs'
+os.makedirs(output_dir, exist_ok=True)
+
 # 📊 Rozkład cen
 if price_col:
     plt.hist(games[price_col].dropna(), bins=50)
     plt.title("Rozkład cen gier")
     plt.xlabel("Cena")
     plt.ylabel("Liczba gier")
+    # Najpierw zapis
+    plt.savefig(os.path.join(output_dir, 'rozklad_cen.png'))
     plt.show()
-    plt.savefig('../outputs/rozklad_cen.png')
 
 # 📊 Popularność vs cena
 if price_col and owners_col:
@@ -69,8 +75,9 @@ if price_col and owners_col:
     plt.xlabel("Cena")
     plt.ylabel("Popularność")
     plt.title("Cena vs popularność")
+    # Najpierw zapis
+    plt.savefig(os.path.join(output_dir, 'popularnosc_vs_cena.png'))
     plt.show()
-    plt.savefig('../outputs/popularnosc_vs_cena.png')
 
 # ======================
 # 7. Gatunki (jeśli istnieją)
@@ -86,8 +93,9 @@ if genre_col:
     genres = games[genre_col].dropna().str.split(';').explode()
     genres.value_counts().head(10).plot(kind='bar')
     plt.title("Najpopularniejsze gatunki")
+    # Najpierw zapis
+    plt.savefig(os.path.join(output_dir, 'gatunki.png'))
     plt.show()
-    plt.savefig('../outputs/gatunki.png')
 
 
 # ======================
@@ -97,5 +105,6 @@ corr = games.corr(numeric_only=True)
 
 plt.figure(figsize=(12,8))
 sns.heatmap(corr, annot=True, fmt=".2f", annot_kws={"size":8})
+# Najpierw zapis
+plt.savefig(os.path.join(output_dir, 'korelacje.png'))
 plt.show()
-plt.savefig('../outputs/korelacje.png')
