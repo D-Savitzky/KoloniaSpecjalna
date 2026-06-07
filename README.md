@@ -66,4 +66,4 @@ model do obsługi interaktywnych zapytań użytkownika. Instrukcja uruchomienia:
 uczone wagi adaptera. 
 9. Otworzyć plik main.ipynb w środowisku obsługującym Jupyter Notebooks (tutaj
 uzyto PyCharm) i uruchomić kolejno wszystkie komórki (lub alternatywnie wyeks
-portować kod do zwykłego pliku .py i wywołać go w terminalu).nsformers peft trl datasets bitsandbytes faiss-gpu sentence-transformers
+portować kod do zwykłego pliku .py i wywołać go w terminalu).
